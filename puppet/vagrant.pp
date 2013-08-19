@@ -27,8 +27,8 @@ class foo {
    package { "nginx": ensure => installed, require => Yumrepo["nginx"] }
 }
 
-file { "nginx.conf":
-	path => "/etc/nginx/nginx.conf",
+file { "vagrant.conf":
+	path => "/etc/nginx/conf.d/vagrant.conf",
 	ensure => present,
 	content => "server {\n listen 0.0.0.0:8080;\n root /var/www/;\n index index.html\n}"
 }
