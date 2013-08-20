@@ -25,14 +25,17 @@ class base {
 
 class foo {
    package { "nginx": ensure => installed, require => Yumrepo["nginx"] }
-}
-
-file { "vagrant.conf":
-	path => "/etc/nginx/conf.d/vagrant.conf",
+   
+   file { "/etc/nginx/conf.d/default1.conf":
 	ensure => present,
-	content => "server {\n listen 0.0.0.0:8080;\n root /var/www/;\n index index.html\n}"
+	content => "server {\nlisten 0.0.0.0:8080;\nserver_name localhost;\nlocation / {\nroot /var/www/;\nindex  index.html index.htm;\n}}"
+   }
 }
 
-service { "nginx":
-  enable => true,
+service { 'nginx':
+        ensure     => running,
+        enable     => true,
+        hasrestart => true
 }
+
+package { "lynx": ensure => installed}
